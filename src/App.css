@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.key-map {
+  width: 50px;
+  cursor: move;
+  height: 50px;
+  vertical-align:middle;
+  justify-content: center;
+  text-align: center;  
+  background: white;  
+  border-radius: 50%;
+  font-size: 10px;
+  display: flex;
+  position: absolute;
+  opacity: 0.7;
+  border: solid black 2px;
+}
+
+.key-map span {
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.map,img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width:100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.modal-main {
+  position:fixed;
+  background: white;
+  width: 80%;
+  height: auto;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  padding: 5px 10px;
+}
+
+.display-block {
+  display: block;
+}
+
+.display-none {
+  display: none;
+}
+
+.list-button {
+  position: absolute;
+  top: 0;
+  margin: auto;
+  right: 0;
+  left: 0;
+  width: 500px;
+}
+
+.list-button button {
+  margin: 5px;
+  display: inline;
+}
+
+.modal-body {
+  padding: 5px 10px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* result highlight */
+pre {outline: 1px solid #ccc; padding: 5px; margin: 5px; }
+.string { color: green; }
+.number { color: darkorange; }
+.boolean { color: blue; }
+.null { color: magenta; }
+.key { color: red; }
+
+/* Hide the file input using
+opacity */
+[type=file] {
+  position: absolute;
+  filter: alpha(opacity=0);
+  display: none;
+  width: 150px;
+}
+
+[type=file] + label {
+  display: block;
+  background: whitesmoke;
+  border: 1px solid rgb(42, 42, 42);
+  margin: 10px 5px 5px 5px;
+  padding: 1px 10px 1px 10px;
+  text-align: center;
+  display: inline;
+  border-radius: 5px;
+  width: 150px;
+  
+}
+[type=file] + label:hover {
+  cursor: pointer;
+}
