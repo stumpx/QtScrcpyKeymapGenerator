@@ -1,4 +1,6 @@
 
+Web : https://qtscrcpy-keymap.netlify.app
+
 # Keymapper Generator for QTScrcpy - https://github.com/barry-ran/QtScrcpy
 - Upload a screenshot of the controls from the game
 - customize each map key
