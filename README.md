@@ -15,3 +15,9 @@ I do not know if there are already available third party applications for custom
 
 
 I'm learning React JS so I made this an exercise and the result is of course messy
+
+### 运行
+`yarn run start`
+
+### 构建
+`yarn run build`
