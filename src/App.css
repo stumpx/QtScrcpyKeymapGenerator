@@ -81,7 +81,7 @@ body {
     margin: auto;
     right: 0;
     left: 0;
-    width: 500px;
+    width: auto;
     display: flex;
     justify-content: center;
     align-items: center;

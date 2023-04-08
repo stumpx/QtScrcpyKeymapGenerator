@@ -18,6 +18,8 @@
 .env.test.local
 .env.production.local
 
+# 增加新的排除项
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
@@ -26,3 +28,4 @@ yarn-error.log*
 .vscode
 *.zip
 *.7z
+*.exe

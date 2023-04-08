@@ -2,8 +2,8 @@
   "switchKey": "Key_QuoteLeft",
   "mouseMoveMap": {
     "startPos": {
-      "x": 0.573926,
-      "y": 0.321343
+      "x": 0.57002,
+      "y": 0.30241
     },
     "speedRatioX": 2.25,
     "speedRatioY": 1.25,
@@ -12,8 +12,8 @@
       "type": "KMT_CLICK",
       "key": "Key_Alt",
       "pos": {
-        "x": 0.486914,
-        "y": 0.473528
+        "x": 0.48594,
+        "y": 0.47267
       },
       "switchMap": false
     },

@@ -15,6 +15,7 @@ class Key extends React.Component {
         this.state = {count: 0, index: props.index, name: props.name, x: props.x, y: props.y, pos: props.pos, height: props.height, width: props.width};
         this.handleStop = this.handleStop.bind(this);
         this.start = this.start.bind(this);
+        this.setMouseMoveMap = this.setMouseMoveMap.bind(this);
     }
 
     // 销毁事件
@@ -33,14 +34,45 @@ class Key extends React.Component {
     // 鼠标拖动事件
     handleDrag = (event, info) => {
         if (this._isMounted) {
-            const x = (info.x / this.state.width) * 1;
-            const y = (info.y / this.state.height) * 1;
+            let x = (info.x / this.state.width) * 1;
+            let y = (info.y / this.state.height) * 1;
+            x = parseFloat(x.toFixed(6))
+            y = parseFloat(y.toFixed(6))
             const pos = {x: x, y: y};
             this.setState({pos: pos, x: info.x, y: info.y});
+
+            // 鼠标视角
+            if (this.props.setMouseMoveMap && this.props.name === 'MouseMap') {
+                let mouseMoveMap = {
+                    startPos: {
+                        x,
+                        y
+                    }
+                }
+                this.props.setMouseMoveMap(mouseMoveMap)
+            }
+
+            // 小眼睛
+            if (this.props.setMouseMoveMap && this.props.name === 'Key_Alt') {
+                let mouseMoveMap = {
+                    smallEyes: {
+                        comment: "小眼睛",
+                        type: "KMT_CLICK",
+                        key: "Key_Alt",
+                        pos: {
+                            x,
+                            y
+                        },
+                        switchMap: false
+                    }
+                }
+                this.props.setMouseMoveMap(mouseMoveMap)
+            }
         }
     }
 
     handleStop(event, info) {
+        console.log('Key.handleStop', event, info)
         console.log(info);
         // this.props.parentCallback(this.state.index,this.state.pos);
     }
@@ -67,6 +99,11 @@ class Key extends React.Component {
         }
     }
 
+    // 调用父组件方法
+    setMouseMoveMap(obj) {
+        this.props.setMouseMoveMap(obj)
+    }
+
     // 渲染函数
     render() {
         return <Draggable onStol={this.props.parentCallback} onDrag={this.handleDrag} defaultPosition={{x: this.state.x, y: this.state.y}}>
@@ -84,6 +121,7 @@ class Mouse extends React.Component {
     constructor(props) {
         super(props);
         this.state = {data: props.data, height: props.height, width: props.width};
+        this.setMouseMoveMap = this.setMouseMoveMap.bind(this);
     }
 
     // 销毁事件
@@ -97,8 +135,12 @@ class Mouse extends React.Component {
     handleDrag = (event, info) => {
         const x = (info.x / this.state.width) * 1;
         const y = (info.y / this.state.height) * 1;
-        this.setState({pos: {x: x, y: y}});
+        this.setState({pos: {x, y}});
+    }
 
+    // 调用父组件方法
+    setMouseMoveMap(obj) {
+        this.props.setMouseMoveMap(obj)
     }
 
     // 渲染函数
@@ -111,17 +153,44 @@ class Mouse extends React.Component {
         const y1 = this.state.data.smallEyes.pos.y * height;
         return (
             <div>
-                <Key name={"MouseMap"} pos={this.state.data.startPos} x={x} y={y} width={width} height={height}/>
-                <Key name={this.state.data.smallEyes.key} pos={this.state.data.smallEyes.pos} x={x1} y={y1} width={width} height={height}/>
+                <Key setMouseMoveMap={this.setMouseMoveMap} name={"MouseMap"} pos={this.state.data.startPos} x={x} y={y} width={width} height={height}/>
+                <Key setMouseMoveMap={this.setMouseMoveMap} name={this.state.data.smallEyes.key} pos={this.state.data.smallEyes.pos} x={x1} y={y1} width={width} height={height}/>
             </div>
         )
     }
+}
+
+function downloadFile(data, type, filename) {
+    let text = JSON.stringify(data, undefined, 2)
+    let blob = null
+    if (type === 'blob') {
+        blob = new window.Blob([text], {
+            type: "text/plain;charset=utf-8"
+        })
+    } else if (type === 'json') {
+        blob = new window.Blob([text], {
+            type: 'application/json'
+        })
+    } else if (type === 'markdown') {
+        blob = new window.Blob([text], {
+            type: 'text/markdown'
+        })
+    }
+
+    // 根据 blob生成 url链接
+    const objectURL = window.URL.createObjectURL(blob)
+    const domElement = document.createElement('a')
+    domElement.href = objectURL
+    domElement.download = filename
+    domElement.click()
+    URL.revokeObjectURL(objectURL)
 }
 
 // 结果弹窗组件
 class ModalResult extends React.Component {
     constructor(props) {
         super(props)
+        this.onClickDownload = this.onClickDownload.bind(this)
     }
 
     // 销毁事件
@@ -129,6 +198,10 @@ class ModalResult extends React.Component {
         this.setState = (state, callback) => {
             return;
         };
+    }
+
+    onClickDownload(e) {
+        downloadFile(JSON.parse(this.props.data), "json", "键盘映射.json")
     }
 
     // 渲染函数
@@ -151,6 +224,7 @@ class ModalResult extends React.Component {
                     </div>
                     <br/>
                     <button type="button" onClick={this.props.handleClose}>关闭</button>
+                    <button type="button" onClick={this.onClickDownload}>保存到本地</button>
                 </section>
             </div>
         );
@@ -283,6 +357,7 @@ class App extends React.Component {
         this.addKey = this.addKey.bind(this);
         this.updateJson = this.updateJson.bind(this);
         this.selectTemplate = this.selectTemplate.bind(this);
+        this.setMouseMoveMap = this.setMouseMoveMap.bind(this);
 
     }
 
@@ -472,6 +547,33 @@ class App extends React.Component {
         }
     }
 
+    // 加载Json文件内容
+    handleJsonFile = (e) => {
+        let _this = this
+        if (e.target.files[0]) {
+            // document.getElementById("image").src = URL.createObjectURL(e.target.files[0]);
+            let reader = new FileReader();//新建一个FileReader
+            reader.readAsText(e.target.files[0], "UTF-8");//读取文件
+            reader.onload = function (evt) { //读取完文件之后会回来这里
+                try {
+                    let fileString = evt.target.result; // 读取文件内容
+                    console.log("fileString", fileString);
+                    let data = JSON.parse(fileString);
+                    _this.setState({dataJson: data});
+                    _this.updateJson();
+                } catch (e) {
+                    // console.log("in4-");
+                    alert("请选择Json文件");
+                }
+            }
+        }
+    }
+
+    // 下级调用方法修改鼠标
+    setMouseMoveMap(obj) {
+        this.state.dataJson.mouseMoveMap = Object.assign(this.state.dataJson.mouseMoveMap, obj)
+    }
+
     // 渲染函数
     render() {
 
@@ -482,7 +584,7 @@ class App extends React.Component {
 
         if (this.state.dataJson) {
             if (this.state.dataJson.mouseMoveMap) {
-                listKeys.push(<Mouse key={"mouse"} data={this.state.dataJson.mouseMoveMap} width={width} height={height}/>)
+                listKeys.push(<Mouse setMouseMoveMap={this.setMouseMoveMap} key={"mouse"} data={this.state.dataJson.mouseMoveMap} width={width} height={height}/>)
             }
             if (this.state.dataJson.keyMapNodes) {
                 this.state.dataJson.keyMapNodes.map((data, index) => {
@@ -521,13 +623,15 @@ class App extends React.Component {
                 <ModalResult show={this.state.show} handleClose={this.hideModal} data={JSON.stringify(this.state.dataJson, undefined, 4)}/>
                 <div className="list-button">
                     <select onChange={this.selectTemplate} defaultValue={this.selectedFileName}>
-                        <option value={"codm_k40.json"}>codm_k40.json</option>
-                        <option value={"pubg.json"}>pubg.json</option>
-                        <option value={"genshin.json"}>genshin.json</option>
+                        <option value={"codm_k40.json"}>模板codm_k40</option>
+                        <option value={"pubg.json"}>模板pubg</option>
+                        <option value={"genshin.json"}>模板genshin</option>
                     </select>
+                    <input id="jsonFile" type="file" placeholder="Choose background" title="choose background" onChange={this.handleJsonFile}/>
+                    <label htmlFor="jsonFile">选择本地Json文件</label>
                     <input id="bg" type="file" placeholder="Choose background" title="choose background" onChange={this.handleImg}/>
                     <label htmlFor="bg">选择截图</label>
-                    <button type="button" className="button" onClick={this.showModal}>显示结果</button>
+                    <button type="button" className="button" onClick={this.showModal}>显示结果&保存</button>
                     <button type="button" className="button" onClick={this.addKey}>增加按键</button>
                 </div>
                 <ModalKey show={this.state.showSetting} handleClose={this.hideModalKey} data={this.state.selectedKey} index={this.state.index} parentUpdate={this.updateData} parentRemove={this.removeData}/>
