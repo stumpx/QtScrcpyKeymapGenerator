@@ -254,7 +254,7 @@ class ModalKey extends React.Component {
     componentDidMount() {
         // this.setState({data: this.props.data});
         this.setState({data: this.props.data})
-        fetch('/json-file/keys.json')
+        fetch('./json-file/keys.json')
             .then((r) => r.json())
             .then((data) => {
                 this.setState({keys: data});
@@ -448,7 +448,7 @@ class App extends React.Component {
 
 
         console.log('App.componentDidMount.selectedFileName', this.selectedFileName)
-        fetch('/json-file/' + this.selectedFileName)
+        fetch('./json-file/' + this.selectedFileName)
             .then((r) => r.json())
             .then((data) => {
                 // var data = data.keyMapNodes = [];
@@ -460,7 +460,7 @@ class App extends React.Component {
     selectTemplate(e) {
         console.log('App.selectTemplate.selectedFileName', e.target.value)
         localStorage.setItem('selectedFileName', e.target.value)
-        fetch('/json-file/' + e.target.value)
+        fetch('./json-file/' + e.target.value)
             .then((r) => r.json())
             .then((data) => {
                 this.setState({dataJson: data});
