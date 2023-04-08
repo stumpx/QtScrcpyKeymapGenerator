@@ -1,0 +1,200 @@
+{
+  "switchKey": "Key_QuoteLeft",
+  "mouseMoveMap": {
+    "startPos": {
+      "x": 0.573926,
+      "y": 0.321343
+    },
+    "speedRatioX": 2.25,
+    "speedRatioY": 1.25,
+    "smallEyes": {
+      "comment": "小眼睛",
+      "type": "KMT_CLICK",
+      "key": "Key_Alt",
+      "pos": {
+        "x": 0.486914,
+        "y": 0.473528
+      },
+      "switchMap": false
+    },
+    "speedRatio": 10
+  },
+  "keyMapNodes": [
+    {
+      "comment": "方向盘",
+      "type": "KMT_STEER_WHEEL",
+      "centerPos": {
+        "x": 0.14854166666666666,
+        "y": 0.721322849213691
+      },
+      "leftOffset": 0.1,
+      "rightOffset": 0.1,
+      "upOffset": 0.27,
+      "downOffset": 0.2,
+      "leftKey": "Key_A",
+      "rightKey": "Key_D",
+      "upKey": "Key_W",
+      "downKey": "Key_S"
+    },
+    {
+      "comment": "左探头",
+      "type": "KMT_CLICK",
+      "key": "Key_Q",
+      "pos": {
+        "x": 0.47250000000000003,
+        "y": 0.7504902867715079
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "右探头",
+      "type": "KMT_CLICK",
+      "key": "Key_E",
+      "pos": {
+        "x": 0.8486458333333332,
+        "y": 0.2977335800185014
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "跳",
+      "type": "KMT_CLICK",
+      "key": "Key_Space",
+      "pos": {
+        "x": 0.92,
+        "y": 0.6834782608695652
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "背包",
+      "type": "KMT_CLICK",
+      "key": "Key_Tab",
+      "pos": {
+        "x": 0.05999999999999999,
+        "y": 0.02
+      },
+      "switchMap": true
+    },
+    {
+      "comment": "换弹",
+      "type": "KMT_CLICK",
+      "key": "Key_R",
+      "pos": {
+        "x": 0.7684374999999999,
+        "y": 0.844745605920444
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "捡东西1",
+      "type": "KMT_CLICK",
+      "key": "Key_F",
+      "pos": {
+        "x": 0.43687499999999996,
+        "y": 0.6711378353376504
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "换枪1",
+      "type": "KMT_CLICK",
+      "key": "Key_1",
+      "pos": {
+        "x": 0.48125,
+        "y": 0.8549491211840888
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "换枪2",
+      "type": "KMT_CLICK",
+      "key": "Key_2",
+      "pos": {
+        "x": 0.5739583333333333,
+        "y": 0.8633672525439408
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "手雷",
+      "type": "KMT_CLICK",
+      "key": "Key_3",
+      "pos": {
+        "x": 0.9067708333333333,
+        "y": 0.35097132284921373
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "车加速",
+      "type": "KMT_CLICK",
+      "key": "Key_Shift",
+      "pos": {
+        "x": 0.8308333333333333,
+        "y": 0.9055041628122109
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "开枪",
+      "type": "KMT_CLICK",
+      "key": "LeftButton",
+      "pos": {
+        "x": 0.8333333333333334,
+        "y": 0.7261239592969472
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "开镜",
+      "type": "KMT_CLICK",
+      "key": "RightButton",
+      "pos": {
+        "x": 0.8571875,
+        "y": 0.5306290471785384
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "New Key",
+      "type": "KMT_CLICK",
+      "key": "Key_4",
+      "pos": {
+        "x": 0.6432291666666666,
+        "y": 0.8715078630897317
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "New Key",
+      "type": "KMT_CLICK",
+      "key": "Key_F1",
+      "pos": {
+        "x": 0.31302083333333336,
+        "y": 0.861332099907493
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "New Key",
+      "type": "KMT_CLICK",
+      "key": "Key_F2",
+      "pos": {
+        "x": 0.3572916666666667,
+        "y": 0.857631822386679
+      },
+      "switchMap": false
+    },
+    {
+      "comment": "New Key",
+      "type": "KMT_CLICK",
+      "key": "Key_F3",
+      "pos": {
+        "x": 0.40677083333333336,
+        "y": 0.8567067530064754
+      },
+      "switchMap": false
+    }
+  ]
+}
